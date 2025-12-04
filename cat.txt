@@ -111,3 +111,12 @@ agak sedikit ribet bagian ini, pastikan shield terinsall, lalu generate, kemudia
 nanti pastikan ada menu role yg terbuat di halaman admin
 
 =========================================================
+
+Generate Filament Resource
+	php artisan make:filament-resource Genre --generate // akan bikin CRUD genre
+
+Lakukan ini unutk membuat permission
+	php artisan shield:generate --panel=admin --all
+
+
+=========================================================
