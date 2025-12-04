@@ -31,3 +31,16 @@ php artisan make:filament-user
 Jalankan npm install dan npm run build unutk menjalakan vite nya
 npm install
 npm run build
+
+
+===========================================
+
+Generate Filament Resource
+php artisan make:filament-resource User --generate // akan bikin CRUD user
+
+
+setting storage:link agar gambar muncul
+php artisan storage:link
+
+
+===========================================
