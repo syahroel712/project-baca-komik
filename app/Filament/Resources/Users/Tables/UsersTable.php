@@ -40,6 +40,27 @@ class UsersTable
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+
+                TextColumn::make('roles.name')
+                    ->label('Roles')
+                    ->formatStateUsing(function ($state) {
+                        // Jika state array -> format semua nama role
+                        if (is_array($state)) {
+                            return implode(', ', array_map(
+                                fn($role) =>
+                                ucwords(str_replace('_', ' ', $role)),
+                                $state
+                            ));
+                        }
+
+                        // Jika string tunggal
+                        if (is_string($state)) {
+                            return ucwords(str_replace('_', ' ', $state));
+                        }
+
+                        return '-';
+                    })
+                    ->searchable(),
             ])
             ->filters([
                 //

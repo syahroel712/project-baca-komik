@@ -1,46 +1,113 @@
 Membuat Project Laravel Baru
-composer create-project laravel/laravel baca-komik // saat ini pakai 12.0
+	composer create-project laravel/laravel baca-komik // saat ini pakai 12.0
 
 
 Setup Environment (.env)
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=laravel_komik
-DB_USERNAME=root
-DB_PASSWORD=
+	DB_CONNECTION=mysql
+	DB_HOST=127.0.0.1
+	DB_PORT=3306
+	DB_DATABASE=laravel_komik
+	DB_USERNAME=root
+	DB_PASSWORD=
 
 
 Install Livewire
-composer require livewire/livewire // saat ini pakai 3.7
+	composer require livewire/livewire // saat ini pakai 3.7
 
 
 Install Filament
-composer require filament/filament // saat ini pakai 4.2
+	composer require filament/filament // saat ini pakai 4.2
 
 
 Buat Filament Panel dulu
-php artisan make:filament-panel admin
+	php artisan make:filament-panel admin
 
 Buat filament asset 
-php artisan filament:assets
+	php artisan filament:assets
 
 Buat filament user 
-php artisan make:filament-user
+	php artisan make:filament-user
 
 Jalankan npm install dan npm run build unutk menjalakan vite nya
-npm install
-npm run build
+	npm install
+	npm run build
 
 
 ===========================================
 
 Generate Filament Resource
-php artisan make:filament-resource User --generate // akan bikin CRUD user
+	php artisan make:filament-resource User --generate // akan bikin CRUD user
 
 
 setting storage:link agar gambar muncul
-php artisan storage:link
+	php artisan storage:link
 
 
 ===========================================
+
+
+Spatie Laravel Permission + Filament Shield (Auto-generate UI)
+
+Dengan kombinasi ini kamu langsung dapat:
+	✔ CRUD Role
+	✔ CRUD Permission
+	✔ Assign permission ke role
+	✔ Assign role ke user
+	✔ Proteksi halaman Filament otomatis
+	✔ Menu otomatis
+
+
+
+Langkah 1 — Install Spatie Laravel Permission
+	composer require spatie/laravel-permission
+
+Publish migrasi:
+	php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+
+Jalankan migrasi:
+	php artisan migrate
+
+
+
+Langkah 2 — Tambahkan Trait di Model User
+
+	use Spatie\Permission\Traits\HasRoles;
+
+	class User extends Authenticatable
+	{
+		use HasRoles;
+	}
+
+
+Langkah 3 — Install Filament Shield (Recommended)
+Shield akan membuat:
+	Halaman Role CRUD
+	Halaman Permission CRUD
+	Halaman Assign Role ke User
+	Proteksi panel Filament otomatis
+
+
+Install:
+	composer require bezhansalleh/filament-shield
+
+Publish config:
+	php artisan vendor:publish --tag="filament-shield-config"
+
+Generate resource Filament secara otomatis:
+	php artisan shield:install
+
+Ini akan membuat:
+	app/Filament/Resources/RoleResource.php
+	app/Filament/Resources/PermissionResource.php
+
+
+Langkah 4 — Assign Permission ke User Awal (Super Admin)
+
+	php artisan tinker
+	$user = \App\Models\User::find(1);
+	$user->assignRole('super-admin');
+
+agak sedikit ribet bagian ini, pastikan shield terinsall, lalu generate, kemudian pakai tinker unutk membuat default super-admin (chatgpt aja nanti)
+nanti pastikan ada menu role yg terbuat di halaman admin
+
+=========================================================

@@ -13,6 +13,9 @@ class UserInfolist
     {
         return $schema
             ->schema([
+                //
+                // 🟦 INFORMASI PRIBADI
+                //
                 Section::make('Informasi Pribadi ')
                     ->schema([
                         ImageEntry::make('avatar')
@@ -30,6 +33,9 @@ class UserInfolist
                     ])
                     ->columns(1),
 
+                //
+                // 🟦 INFORMASI AKUN
+                //
                 Section::make('Informasi Akun ')
                     ->schema([
                         TextEntry::make('email')
@@ -48,6 +54,35 @@ class UserInfolist
                             ->placeholder('-'),
                     ])
                     ->columns(2),
+
+                //
+                // 🟦 ROLE & PERMISSION
+                //
+                Section::make('Role & Permission')
+                    ->schema([
+                        TextEntry::make('roles.name')
+                            ->label('Roles')
+                            ->formatStateUsing(function ($state) {
+                                // Jika state array -> format semua nama role
+                                if (is_array($state)) {
+                                    return implode(', ', array_map(
+                                        fn($role) =>
+                                        ucwords(str_replace('_', ' ', $role)),
+                                        $state
+                                    ));
+                                }
+
+                                // Jika string tunggal
+                                if (is_string($state)) {
+                                    return ucwords(str_replace('_', ' ', $state));
+                                }
+
+                                return '-';
+                            })
+                            ->placeholder('-')
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(1),
             ]);
     }
 }
