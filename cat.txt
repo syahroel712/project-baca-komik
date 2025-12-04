@@ -19,3 +19,15 @@ Install Filament
 composer require filament/filament // saat ini pakai 4.2
 
 
+Buat Filament Panel dulu
+php artisan make:filament-panel admin
+
+Buat filament asset 
+php artisan filament:assets
+
+Buat filament user 
+php artisan make:filament-user
+
+Jalankan npm install dan npm run build unutk menjalakan vite nya
+npm install
+npm run build
