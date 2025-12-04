@@ -120,3 +120,12 @@ Lakukan ini unutk membuat permission
 
 
 =========================================================
+
+Generate Filament Resource
+	php artisan make:filament-resource Comic --generate // akan bikin CRUD
+
+Lakukan ini unutk membuat permission
+	php artisan shield:generate --panel=admin --all
+
+
+=========================================================
