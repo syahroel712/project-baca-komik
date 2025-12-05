@@ -129,3 +129,7 @@ Lakukan ini unutk membuat permission
 
 
 =========================================================
+
+Generate Filament Resource Unutk Chapters
+	php artisan make:filament-relation-manager ChaptersRelationManager
+		nanti pilih di terminalnya Comics dna relasi ke chapter

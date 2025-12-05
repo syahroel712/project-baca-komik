@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Filament\Resources\Chapters\Pages;
+
+use App\Filament\Resources\Chapters\ChapterResource;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ViewAction;
+use Filament\Resources\Pages\EditRecord;
+
+class EditChapter extends EditRecord
+{
+    protected static string $resource = ChapterResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            // ViewAction::make(),
+            DeleteAction::make(),
+        ];
+    }
+
+    protected function getRedirectUrl(): string
+    {
+        // Gunakan comic_id dari record yang diedit
+        $comicId = $this->record->comic_id;
+
+        return ChapterResource::getUrl('index', ['comic_id' => $comicId]);
+    }
+}

@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Comics\Tables;
 
+use App\Filament\Resources\Chapters\ChapterResource;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -39,6 +41,12 @@ class ComicsTable
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
+                Action::make('manage_chapters')
+                    ->label('Chapters')
+                    ->icon('heroicon-o-rectangle-stack')
+                    ->url(fn($record) => ChapterResource::getUrl('index', [
+                        'comic_id' => $record->id,
+                    ])),
             ]);
     }
 }
