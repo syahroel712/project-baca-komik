@@ -16,7 +16,7 @@ class ChaptersTable
     {
         return $table
             ->columns([
-                TextColumn::make('comic.title')->label('Comic')->sortable()->searchable(),
+                // TextColumn::make('comic.title')->label('Comic')->sortable()->searchable(),
                 TextColumn::make('title')->label('Judul')->searchable(),
                 TextColumn::make('number')->label('Chapter')->sortable(),
                 IconColumn::make('is_active')->boolean()->label('Publish'),
@@ -27,7 +27,8 @@ class ChaptersTable
                 EditAction::make(),
                 DeleteAction::make(),
                 Action::make('manage')
-                    ->label('Manage Pages')
+                    ->label('Pages')
+                    ->icon('heroicon-o-rectangle-stack')
                     ->url(
                         fn($record) =>
                         PageResource::getUrl('index', ['chapter_id' => $record->id])

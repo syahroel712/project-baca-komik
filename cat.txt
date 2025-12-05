@@ -133,3 +133,20 @@ Lakukan ini unutk membuat permission
 Generate Filament Resource Unutk Chapters
 	php artisan make:filament-relation-manager ChaptersRelationManager
 		nanti pilih di terminalnya Comics dna relasi ke chapter
+
+=========================================================
+
+Filament Resource untuk Pages
+	php artisan make:filament-resource PageResource --generate
+
+	Hide from Sidebar
+		protected static bool $shouldRegisterNavigation = false;
+
+	
+Berarti kita perlu definisi Route & Page baru unutk membuat create multiple page
+Buat Page baru di PageResource:
+	php artisan make:filament-page PageMultipleCreate --resource=PageResource --type=custom
+
+ini berguna unutk bikin page custom, misal upload file multiple
+
+==========================================================
