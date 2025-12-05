@@ -61,16 +61,16 @@ class ChapterResource extends Resource
         ];
     }
 
-    public static function getTableQuery(): Builder
-    {
-        $comicId = request()->query('comic_id');
+    // public static function getTableQuery(): Builder
+    // {
+    //     $comicId = request()->query('comic_id');
 
-        $query = parent::getTableQuery();
+    //     $query = parent::getTableQuery();
 
-        if ($comicId) {
-            $query->where('comic_id', $comicId);
-        }
+    //     if ($comicId) {
+    //         $query->where('comic_id', $comicId);
+    //     }
 
-        return $query;
-    }
+    //     return $query;
+    // }
 }

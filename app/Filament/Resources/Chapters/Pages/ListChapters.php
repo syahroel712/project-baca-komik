@@ -7,6 +7,7 @@ use App\Filament\Resources\Comics\ComicResource;
 use App\Models\Comic;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\Database\Eloquent\Builder;
 
 class ListChapters extends ListRecords
 {
@@ -43,5 +44,16 @@ class ListChapters extends ListRecords
                     'comic_id' => $comicId,
                 ])),
         ];
+    }
+
+    protected function getTableQuery(): Builder
+    {
+        $query = parent::getTableQuery();
+
+        if ($this->comic) {
+            $query->where('comic_id', $this->comic->id);
+        }
+
+        return $query;
     }
 }
