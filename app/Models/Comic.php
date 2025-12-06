@@ -15,6 +15,8 @@ class Comic extends Model
         'author',
         'released_at',
         'status',
+        'views',
+        'likes',
         'is_active',
     ];
 

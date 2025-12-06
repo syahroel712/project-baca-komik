@@ -20,7 +20,7 @@ class ComicsTable
     {
         return $table
             ->columns([
-                TextColumn::make('title')->searchable(),
+                TextColumn::make('title')->searchable()->sortable(),
                 ImageColumn::make('cover')
                     ->disk('public')
                     ->height(60)
@@ -34,6 +34,8 @@ class ComicsTable
                         'success' => 'completed',
                         'gray' => 'hiatus',
                     ]),
+                TextColumn::make('views')->sortable(),
+                TextColumn::make('likes')->sortable(),
                 IconColumn::make('is_active')
                     ->boolean(),
                 TextColumn::make('created_at')->dateTime()->sortable(),
