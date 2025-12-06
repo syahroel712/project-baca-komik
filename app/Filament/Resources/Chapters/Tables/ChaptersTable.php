@@ -21,6 +21,8 @@ class ChaptersTable
                 TextColumn::make('number')->label('Chapter')->sortable(),
                 IconColumn::make('is_active')->boolean()->label('Publish'),
                 TextColumn::make('released_at')->label('Tanggal Rilis')->date(),
+                TextColumn::make('views')->sortable(),
+                TextColumn::make('likes')->sortable(),
                 TextColumn::make('created_at')->label('Dibuat')->dateTime(),
             ])
             ->actions([

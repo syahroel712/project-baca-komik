@@ -11,6 +11,8 @@ class Chapter extends Model
         'title',
         'number',
         'released_at',
+        'views',
+        'likes',
         'is_active',
     ];
 
