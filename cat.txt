@@ -150,3 +150,17 @@ Buat Page baru di PageResource:
 ini berguna unutk bikin page custom, misal upload file multiple
 
 ==========================================================
+
+Bikin halaman frontend
+pakai livewire
+	unutk template letak di components/layouts/app, lalu unutk content taruh di {{ $slot }}
+
+pecah jadi component untuk file seperti navbar dan footer dengan menggunakn laravel components
+	php artisan make:component Navbar
+	php artisan make:component footer
+
+lalu untuk content pakai livewire
+	php artisan make:livewire Home
+	php artisan make:livewire Comic
+	php artisan make:livewire ComicShow
+
