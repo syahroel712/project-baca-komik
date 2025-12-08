@@ -13,6 +13,8 @@ class Comic extends Model
         'description',
         'cover',
         'author',
+        'rating',
+        'type',
         'released_at',
         'status',
         'views',

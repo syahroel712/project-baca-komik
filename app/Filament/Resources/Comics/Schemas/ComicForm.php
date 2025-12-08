@@ -42,6 +42,24 @@ class ComicForm
                     ->schema([
                         TextInput::make('author'),
 
+                        TextInput::make('rating')
+                            ->label('Rating')
+                            ->numeric()
+                            ->minValue(0)
+                            ->maxValue(5)
+                            ->step(0.1),
+
+                        Select::make('type')
+                            ->label('Type')
+                            ->options([
+                                'manga' => 'Manga',
+                                'manhwa' => 'Manhwa',
+                                'manhua' => 'Manhua',
+                                'series' => 'Series',
+                                'oneshot' => 'One Shot',
+                            ])
+                            ->required(),
+
                         DatePicker::make('released_at'),
 
                         Select::make('status')

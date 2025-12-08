@@ -26,6 +26,8 @@ class ComicsTable
                     ->height(60)
                     ->width(45),
                 TextColumn::make('author')->sortable(),
+                TextColumn::make('rating')->sortable(),
+                TextColumn::make('type')->sortable(),
                 TextColumn::make('status')
                     ->sortable()
                     ->badge()
@@ -38,7 +40,6 @@ class ComicsTable
                 TextColumn::make('likes')->sortable(),
                 IconColumn::make('is_active')
                     ->boolean(),
-                TextColumn::make('created_at')->dateTime()->sortable(),
             ])
             ->recordActions([
                 ViewAction::make(),

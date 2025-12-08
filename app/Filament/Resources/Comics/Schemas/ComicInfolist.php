@@ -28,6 +28,9 @@ class ComicInfolist
                 Section::make('Detail Tambahan')
                     ->schema([
                         TextEntry::make('author'),
+                        TextEntry::make('rating'),
+                        TextEntry::make('type')
+                            ->formatStateUsing(fn($state) => ucfirst($state)),
                         TextEntry::make('released_at')->date(),
                         TextEntry::make('status')
                             ->badge()
