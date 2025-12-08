@@ -28,12 +28,14 @@
 
             <!-- Right Section -->
             <div class="flex items-center space-x-3">
-                <!-- Search -->
-                <div class="hidden sm:block relative">
-                    <input type="text" placeholder="Cari komik..."
+                <form action="{{ route('comic') }}" method="GET" class="hidden sm:block relative">
+                    <input type="text" name="search" placeholder="Cari komik..." value="{{ request('search') }}"
                         class="w-64 px-4 py-2 pl-10 text-sm bg-gray-100 dark:bg-gray-700 border-0 rounded-lg focus:ring-2 focus:ring-red-500 dark:focus:ring-red-400 transition-all duration-300 placeholder-gray-500 dark:placeholder-gray-400">
+                    <button type="submit" class="absolute right-1 top-1/2 -translate-y-1/2 text-gray-400">
+                        <i class="fas fa-search"></i>
+                    </button>
                     <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                </div>
+                </form>
 
                 <!-- Mobile Search -->
                 <button

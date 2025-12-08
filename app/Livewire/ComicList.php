@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Chapter;
 use App\Models\Comic;
 use App\Models\Genre;
 use Livewire\Component;
@@ -12,9 +13,12 @@ class ComicList extends Component
     use WithPagination;
 
     public $search = '';
-    public $genre = null;
     public $perPage = 12;
-    public $sort = 'latest'; // latest | popular | liked
+    public $sort = 'latest'; // latest | rating | oldest
+    public $status = "";
+    public $type = "";
+    public $genre = "";
+    public $allGenres = [];
 
     protected $queryString = ['search', 'genre', 'sort', 'page'];
 
@@ -35,37 +39,62 @@ class ComicList extends Component
 
     public function render()
     {
-        // popular horizontal scroller (week/top) — use views or likes
-        $popular = Comic::query()
+        // main list with filters
+        $query = Comic::query()
             ->withCount('chapters')
-            ->with('genres')
-            ->orderByDesc('views') // or use weighted logic later
-            ->take(12)
-            ->get();
+            ->with('genres');
 
-        // main list (paginated) with filters
-        $query = Comic::query()->withCount('chapters')->with('genres');
-
+        // search by title
         if ($this->search) {
             $query->where('title', 'like', '%' . $this->search . '%');
         }
 
-        if ($this->genre) {
-            $query->whereHas('genres', fn($q) => $q->where('id', $this->genre));
+        // sort
+        if ($this->sort) {
+            match ($this->sort) {
+                'latest' => $query->orderBy('created_at', 'desc'),
+                'oldest' => $query->orderBy('created_at', 'asc'),
+                'rating' => $query->orderBy('rating', 'desc'),
+                default => null
+            };
         }
 
-        if ($this->sort === 'popular') {
-            $query->orderByDesc('views');
-        } elseif ($this->sort === 'liked') {
-            $query->orderByDesc('likes');
-        } else {
-            $query->orderByDesc('created_at');
+        // filter by type
+        if ($this->type) {
+            $query->where('type', $this->type);
         }
+
+        // filter by status
+        if ($this->status) {
+            $query->where('status', $this->status);
+        }
+
+        // filter by multiple genres (multi-select)
+        if (!empty($this->allGenres)) {
+            foreach ($this->allGenres as $genreId) {
+                $query->whereHas('genres', fn($q) => $q->where('id', $genreId));
+            }
+        }
+
+        // order by latest chapter first, fallback to comic.created_at
+        $query->orderByDesc(
+            Chapter::select('created_at')
+                ->whereColumn('comic_id', 'comics.id')
+                ->latest()
+                ->limit(1)
+        )
+            ->orderByDesc('created_at');
 
         $comics = $query->paginate($this->perPage);
 
         // sidebar top items (top 6 by views)
-        $top = $popular->take(6);
+        // popular horizontal scroller
+        $top = Comic::query()
+            ->withCount('chapters')
+            ->with('genres')
+            ->orderByDesc('views')
+            ->take(6)
+            ->get();
 
         // genres for filter list
         $genres = Genre::orderBy('name')->get();
