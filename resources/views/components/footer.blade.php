@@ -38,18 +38,30 @@
             <div>
                 <h4 class="text-sm font-bold text-gray-900 dark:text-white mb-4">Quick Links</h4>
                 <ul class="space-y-2">
-                    <li><a href="#"
-                            class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors">Tentang
-                            Kami</a></li>
-                    <li><a href="#"
-                            class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors">FAQ</a>
+                    <li>
+                        <a href="{{ route('about') }}"
+                            class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors">
+                            Tentang Kami
+                        </a>
                     </li>
-                    <li><a href="#"
-                            class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors">Kontak</a>
+                    <li>
+                        <a href="{{ route('faq') }}"
+                            class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors">
+                            FAQ
+                        </a>
                     </li>
-                    <li><a href="#"
-                            class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors">Kebijakan
-                            Privasi</a></li>
+                    <li>
+                        <a href="{{ route('contact') }}"
+                            class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors">
+                            Kontak
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('privacy') }}"
+                            class="text-sm text-gray-600 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400 transition-colors">
+                            Kebijakan Privasi
+                        </a>
+                    </li>
                 </ul>
             </div>
 

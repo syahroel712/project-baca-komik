@@ -40,7 +40,7 @@ class Home extends Component
             // ->where('is_featured', true) // if you don't have, use 
             ->orderByDesc('created_at')
             ->with('genres')
-            ->take(6)
+            ->take(3)
             ->get();
 
         // popular horizontal scroller (week/top) — use views or likes
