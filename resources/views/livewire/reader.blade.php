@@ -1,7 +1,7 @@
 <div>
     <!-- Reader Header -->
     <div id="readerHeader"
-        class="fixed left-0 right-0 z-50 bg-white/80 dark:bg-black/80 backdrop-blur-lg border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+        class="fixed left-0 right-0 z-50 bg-white dark:bg-gray-800  backdrop-blur-lg border-b border-gray-200 dark:border-gray-700 transition-colors duration-300">
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -13,7 +13,7 @@
                             {{ $chapter->comic->title }}
                         </h1>
                         <p class="text-gray-600 dark:text-gray-400 text-xs truncate overflow-hidden whitespace-nowrap">
-                            Chapter {{ $chapter->number }}
+                            Chapter {{ $chapter->number }} : {{ $chapter->title }}
                         </p>
                     </div>
                 </div>
@@ -181,10 +181,10 @@
             <!-- Chapter Info Banner -->
             <div class="bg-gradient-to-r from-red-600 to-pink-600 p-4 text-center">
                 <h1 class="text-white font-bold text-xl mb-1">
-                    Chapter {{ $chapter->number }}
+                    Chapter {{ $chapter->number }} : {{ $chapter->title }}
                 </h1>
                 <p class="text-white/80 text-sm">
-                    {{ $chapter->comic->title }} • {{ $chapter->updated_at->diffForHumans() }}
+                    {{ $chapter->comic->title }} • {{ $chapter->created_at->diffForHumans() }}
                 </p>
             </div>
 
@@ -211,7 +211,8 @@
                         class="w-16 h-16 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
                         <i class="fas fa-check text-white text-2xl"></i>
                     </div>
-                    <h2 class="text-2xl font-bold text-white mb-2">Akhir Chapter {{ $chapter->title }}</h2>
+                    <h2 class="text-2xl font-bold text-white mb-2">Akhir Chapter {{ $chapter->number }} :
+                        {{ $chapter->title }}</h2>
                     <p class="text-gray-400 mb-6">Terima kasih sudah membaca! Jangan lupa beri rating</p>
 
                     <!-- Rating -->
