@@ -44,7 +44,7 @@
     </div>
 
     <!-- Chapter List Sidebar -->
-    <div id="chapterSidebar"
+    <div id="chapterSidebar" wire:ignore.self
         class="fixed top-0 right-0 h-full w-80 bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 shadow-2xl transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
         <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
             <h2 class="text-lg font-bold text-gray-900 dark:text-white">Daftar Chapter</h2>
@@ -57,35 +57,45 @@
         <!-- Search Chapter -->
         <div class="p-4 border-b border-gray-200 dark:border-gray-700">
             <div class="relative">
-                <input type="text" id="searchChapter" placeholder="Cari chapter..."
+                <input type="text" placeholder="Cari chapter..." wire:model.lazy="searchChapter"
                     class="w-full px-4 py-2 pl-10 text-sm bg-gray-100 dark:bg-gray-800 border-0 rounded-lg focus:ring-2 focus:ring-red-500 transition-all duration-300">
-                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+
+                <i wire:loading
+                    class="fas fa-spinner animate-spin absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
             </div>
         </div>
 
         <!-- Chapter List -->
         <div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-2">
-            <!-- Chapter Item -->
-            @foreach ($chapter->comic->chapters()->orderBy('number', 'desc')->get() as $ch)
-                <a href="{{ route('reader', [$chapter->comic->slug, $ch->number]) }}"
+            @forelse ($chapters as $ch)
+                <a href="{{ route('reader', [$ch->comic->slug, $ch->number]) }}"
                     class="flex items-center justify-between p-3
-                {{ $ch->id == $chapter->id
-                    ? 'bg-red-50 dark:bg-red-900/20 border-2 border-red-500'
-                    : 'bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700' }}
-                    rounded-lg transition-all duration-300">
+                    {{ $ch->id == $chapter->id
+                        ? 'bg-red-50 dark:bg-red-900/20 border-2 border-red-500'
+                        : 'bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700' }}
+                    rounded-lg transition-all duration-300"
+                    wire:key="chpaterId-{{ $ch->id }}">
                     <div class="flex items-center space-x-3">
                         <div class="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center flex-shrink-0">
                             <span class="text-white font-bold text-xs">{{ $ch->number }}</span>
                         </div>
                         <div>
-                            <h3 class="font-semibold text-sm text-gray-900 dark:text-white">Chapter {{ $ch->number }}
+                            <h3 class="font-semibold text-sm text-gray-900 dark:text-white">
+                                Chapter {{ $ch->number }} : {{ $ch->title }}
                             </h3>
-                            <p class="text-xs text-gray-600 dark:text-gray-400">{{ $ch->updated_at->diffForHumans() }}
+                            <p class="text-xs text-gray-600 dark:text-gray-400">{{ $ch->created_at->diffForHumans() }}
                             </p>
                         </div>
                     </div>
                 </a>
-            @endforeach
+            @empty
+                <p class="text-sm text-gray-500 dark:text-gray-400 text-center mt-4">
+                    Chapter tidak ditemukan.
+                </p>
+            @endforelse
+            {{-- <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                Nilai searchChapter: {{ $searchChapter }}
+            </p> --}}
         </div>
     </div>
 
@@ -193,7 +203,7 @@
                 @foreach ($pages as $index => $page)
                     <div class="relative group">
                         <img src="{{ Storage::url($page->image) }}" alt="Page {{ $index + 1 }}"
-                            class="reader-image">
+                            class="reader-image" loading="lazy">
 
                         {{-- Page Number Hover --}}
                         <div
@@ -567,12 +577,12 @@
         });
 
         // Search Chapter
-        const searchChapter = document.getElementById('searchChapter');
-        searchChapter.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.toLowerCase();
-            // Add your search logic here
-            console.log('Searching for:', searchTerm);
-        });
+        // const searchChapter = document.getElementById('searchChapter');
+        // searchChapter.addEventListener('input', (e) => {
+        //     const searchTerm = e.target.value.toLowerCase();
+        //     // Add your search logic here
+        //     console.log('Searching for:', searchTerm);
+        // });
 
         // Rating stars
         const ratingStars = document.querySelectorAll('.fa-star');
