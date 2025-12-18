@@ -54,7 +54,7 @@
                         </select>
 
                         <!-- Genre Multi-Select (Alpine.js) -->
-                        <div x-data="multiSelect(@entangle('allGenres'))" class="relative w-48 z-[99999]">
+                        <div x-data="multiSelect(@entangle('allGenres'))" class="relative w-48 z-10">
 
                             <!-- Trigger -->
                             <div @click="open = !open" tabindex="0"
