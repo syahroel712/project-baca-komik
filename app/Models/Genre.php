@@ -28,4 +28,9 @@ class Genre extends Model
             }
         });
     }
+
+    public function comics()
+    {
+        return $this->belongsToMany(Comic::class, 'comic_genre');
+    }
 }

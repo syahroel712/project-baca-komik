@@ -20,7 +20,12 @@ class ComicList extends Component
     public $genre = "";
     public $allGenres = [];
 
-    protected $queryString = ['search', 'genre', 'sort', 'page'];
+    protected $queryString = [
+        'search',
+        'sort',
+        'page',
+        'allGenres' => ['except' => []],
+    ];
 
     protected $listeners = ['refreshHome' => '$refresh'];
 

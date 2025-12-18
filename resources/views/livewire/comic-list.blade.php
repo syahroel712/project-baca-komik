@@ -257,7 +257,7 @@
                         </h3>
                         <div class="flex flex-wrap gap-2">
                             @foreach ($genres as $item)
-                                <a href="#"
+                                <a href="{{ route('comic', ['allGenres' => [$item->id]]) }}"
                                     class="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-full hover:bg-red-50 hover:text-red-600 dark:hover:bg-red-900/20 dark:hover:text-red-400 transition-all duration-300">
                                     {{ $item->name }}
                                 </a>
